@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # The Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  # The Backend API Service
+  backend:
+    build: ./backend
+    container_name: node-backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db             # Matches the service name above
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: postgres
+    depends_on:
+      - db
+
+volumes:
+  db-data:

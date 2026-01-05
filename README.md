@@ -15,8 +15,8 @@ This repository documents the journey of building, containerizing, automating, a
 - [x] Set up project structure
 - [x] Create Node.js Backend API
 - [ ] Create React Frontend
-- [ ] Containerize with Dockerfiles
-- [ ] Orchestrate locally with docker-compose.yml
+- [x] Containerize with Dockerfiles
+- [x] Orchestrate locally with docker-compose.yml
 
 ### ⏳ Phase 2: The Orchestration (Kubernetes)
 - [ ] Set up Minikube cluster
