@@ -28,5 +28,16 @@ services:
     depends_on:
       - db
 
+  # Frontend (React) - NEW SECTION
+  frontend:
+    build: ./frontend
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true  # Needed for React interactive mode
+    tty: true         # Needed for React interactive mode
+    depends_on:
+      - backend    
+
 volumes:
   db-data:
