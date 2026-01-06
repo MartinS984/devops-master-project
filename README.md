@@ -24,8 +24,8 @@ This repository documents the journey of building, containerizing, automating, a
 - [x] Expose application using Ingress
 
 ### ⏳ Phase 3: The Automation (CI Pipeline)
-- [ ] Set up Jenkins
-- [ ] Automate Docker Image Build & Push
+- [x] Set up Jenkins
+- [x] Automate Docker Image Build & Push
 
 ### ⏳ Phase 4: The Deployment (CD Pipeline)
 - [ ] Automate deployment to Kubernetes
