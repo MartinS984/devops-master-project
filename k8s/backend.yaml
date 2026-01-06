@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: my-backend:v1    # The image we built earlier
-        imagePullPolicy: Never  # CRITICAL for Minikube local images!
+        image: martins984/backend:latest    # The image we built earlier
+        imagePullPolicy:   # CRITICAL for Minikube local images!
         ports:
         - containerPort: 5000
         env:
