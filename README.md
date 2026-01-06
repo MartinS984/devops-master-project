@@ -28,7 +28,10 @@ This repository documents the journey of building, containerizing, automating, a
 - [x] Automate Docker Image Build & Push
 
 ### ⏳ Phase 4: The Deployment (CD Pipeline)
-- [ ] Automate deployment to Kubernetes
+*Goal: Automate the deployment to the Kubernetes cluster.*
+- [x] Install ArgoCD
+- [x] Configure ArgoCD to watch the GitHub Repo
+- [x] Enable Auto-Sync and Self-Healing
 
 ### ⏳ Phase 5: The Observability
 - [ ] Install Prometheus & Grafana
