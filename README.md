@@ -14,14 +14,14 @@ This repository documents the journey of building, containerizing, automating, a
 ### ✅ Phase 1: The Foundation (Local Dev)
 - [x] Set up project structure
 - [x] Create Node.js Backend API
-- [ ] Create React Frontend
+- [x] Create React Frontend
 - [x] Containerize with Dockerfiles
 - [x] Orchestrate locally with docker-compose.yml
 
 ### ⏳ Phase 2: The Orchestration (Kubernetes)
-- [ ] Set up Minikube cluster
-- [ ] Create K8s Deployments & Services
-- [ ] Expose application using Ingress
+- [x] Set up Minikube cluster
+- [x] Create K8s Deployments & Services
+- [x] Expose application using Ingress
 
 ### ⏳ Phase 3: The Automation (CI Pipeline)
 - [ ] Set up Jenkins
