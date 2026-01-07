@@ -33,5 +33,9 @@ This repository documents the journey of building, containerizing, automating, a
 - [x] Configure ArgoCD to watch the GitHub Repo
 - [x] Enable Auto-Sync and Self-Healing
 
-### ⏳ Phase 5: The Observability
-- [ ] Install Prometheus & Grafana
+### ✅ Phase 5: The Observability (Monitoring)
+*Goal: Implement monitoring with Prometheus and Grafana.*
+- [x] Install Helm
+- [x] Deploy kube-prometheus-stack (Prometheus, Grafana, Alertmanager)
+- [x] Access Grafana Dashboards
+- [x] Visualize Cluster Metrics (CPU, Memory, Network)
