@@ -51,13 +51,13 @@ The project implements a fully automated "Commit-to-Deploy" workflow:
 
 ### **GitOps Dashboard (ArgoCD)**
 *Visualizing the application topology and sync status.*
-![ArgoCD Screenshot](screenshots/Screenshot 2026-01-07 103823.png)
-*(Note: Replace this path with your actual image or delete this line)*
+<img width="1914" height="974" alt="Screenshot 2026-01-07 103932" src="https://github.com/user-attachments/assets/3681797d-8170-4857-9130-71457889a67f" />
+
 
 ### **Observability (Grafana)**
 *Real-time monitoring of Cluster CPU, Memory, and Pod health.*
-![Grafana Screenshot](/screenshots/Screenshot 2026-01-07 103932.png)
-*(Note: Replace this path with your actual image or delete this line)*
+<img width="1913" height="960" alt="Screenshot 2026-01-07 103823" src="https://github.com/user-attachments/assets/2e479e98-8fd1-4aa1-b031-3ce76dcc5b06" />
+
 
 ---
 
