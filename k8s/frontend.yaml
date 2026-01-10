@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: martins984/frontend:latest   # The image we built earlier
+        image: FRONTEND_IMAGE_PLACEHOLDER   # The image we built earlier
         imagePullPolicy: # Use the local Minikube image
         ports:
         - containerPort: 3000
