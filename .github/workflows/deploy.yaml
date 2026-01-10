@@ -1,14 +1,15 @@
-name: Deploy to EKS
+name: Deploy Full Stack to EKS
 
 on:
   push:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1                   # Your Region
-  ECR_REPO_BACKEND: devops-backend   # <--- Make sure this matches AWS
-  ECR_REPO_FRONTEND: devops-frontend # <--- Make sure this matches AWS        # We will create this repo in a moment
-  EKS_CLUSTER_NAME: devops-cluster-tf     # MUST match your Terraform cluster name
+  AWS_REGION: us-east-1
+  EKS_CLUSTER_NAME: devops-cluster-tf
+  # --- CRITICAL FIX: These must be defined here! ---
+  ECR_REPO_BACKEND: devops-backend
+  ECR_REPO_FRONTEND: devops-frontend
 
 jobs:
   deploy:
@@ -16,11 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Check out the code
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # 2. Log in to AWS (Using Secrets we will set up next)
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -28,28 +27,34 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
-    # 3. Log in to Amazon ECR (Private Docker Registry)
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
-    # 4. Build, Tag, and Push Docker Image to ECR
-    - name: Build, tag, and push image to Amazon ECR
+    # --- BUILDER 1: BACKEND ---
+    - name: Build & Push Backend
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }} # Uses the Git Commit ID as the version tag
+        IMAGE_TAG: ${{ github.sha }}
       run: |
-        # Build the container
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        
-        # Push it to AWS
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        
-        # Also push "latest" tag for convenience
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        cd backend
+        # We explicitly use the variable from the top 'env' block
+        docker build -t $ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG
+        cd ..
 
-    # 5. Deploy to EKS
+    # --- BUILDER 2: FRONTEND ---
+    - name: Build & Push Frontend
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        cd frontend
+        docker build -t $ECR_REGISTRY/$ECR_REPO_FRONTEND:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPO_FRONTEND:$IMAGE_TAG
+        cd ..
+
+    # --- THE DEPLOYMENT ---
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
 
@@ -58,10 +63,11 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        # We need to replace the image placeholder in our YAML with the real image URL
-        # NOTE: This assumes you have a deployment.yaml file in a 'k8s' folder.
-        # We will check this in the next step.
-        sed -i.bak "s|DOCKER_IMAGE_PLACEHOLDER|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
+        # 1. Update Backend YAML
+        sed -i "s|BACKEND_IMAGE_PLACEHOLDER|$ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG|g" k8s/backend.yaml
         
-        # Apply the changes
+        # 2. Update Frontend YAML
+        sed -i "s|FRONTEND_IMAGE_PLACEHOLDER|$ECR_REGISTRY/$ECR_REPO_FRONTEND:$IMAGE_TAG|g" k8s/frontend.yaml
+        
+        # 3. Apply ALL files
         kubectl apply -f k8s/
