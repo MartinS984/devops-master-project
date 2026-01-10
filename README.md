@@ -60,3 +60,25 @@ I implemented a fully automated **Continuous Deployment** pipeline using GitHub 
 * **Amazon ECR:** For private container storage.
 * **Docker:** For containerizing the microservices.
 * **Sed / Bash Scripting:** For dynamic manifest updates.
+
+📌 Project Title: Cloud-Native DevOps Infrastructure (AWS & Kubernetes)
+Description: Architected and deployed a highly available three-tier web application (React, Node.js, PostgreSQL) on AWS Elastic Kubernetes Service (EKS).
+
+Key Achievements (Pick 3-4):
+
+Infrastructure as Code (IaC): Provisioned a production-ready AWS EKS cluster, VPC, and Security Groups using Terraform, reducing environment setup time from hours to minutes.
+
+CI/CD Automation: Engineered a robust GitHub Actions pipeline that builds Docker images for Frontend and Backend services in parallel, pushes them to Amazon ECR, and deploys to Kubernetes automatically.
+
+Dynamic Deployment Strategy: Implemented dynamic image tagging using Git Commit SHAs and sed stream editing to ensure precise version control and zero-downtime updates.
+
+Container Orchestration: Managed Kubernetes manifests for Deployments, Services (LoadBalancers), and Storage, successfully troubleshooting complex networking and persistent volume constraints.
+
+Full-Stack Integration: Orchestrated the communication between a React Frontend, Node.js API, and PostgreSQL database within a distributed microservices architecture.
+
+🏷️ Skills & Keywords (For ATS Scanners)
+Cloud: AWS (EKS, ECR, IAM, VPC, ELB)
+
+DevOps Tools: Terraform, Docker, GitHub Actions, Kubernetes (kubectl)
+
+General: CI/CD, Microservices, Infrastructure as Code, Troubleshooting, Linux/Bash
