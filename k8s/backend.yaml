@@ -42,4 +42,4 @@ spec:
   - protocol: TCP
     port: 80        # The service exposes port 80 internally
     targetPort: 5000 # It maps to container port 5000
-  type: ClusterIP   # Internal only (Frontend will talk to this)
+  type: LoadBalancer   # Internal only (Frontend will talk to this)
