@@ -6,7 +6,8 @@ on:
 
 env:
   AWS_REGION: us-east-1                   # Your Region
-  ECR_REPOSITORY: devops-app-repo         # We will create this repo in a moment
+  ECR_REPO_BACKEND: devops-backend   # <--- Make sure this matches AWS
+  ECR_REPO_FRONTEND: devops-frontend # <--- Make sure this matches AWS        # We will create this repo in a moment
   EKS_CLUSTER_NAME: devops-cluster-tf     # MUST match your Terraform cluster name
 
 jobs:
