@@ -1,14 +1,14 @@
 # Default values for devops-app.
 
 backend:
-  image: "ghcr.io/MartinS984/backend" # We will fix this URL later
-  tag: "latest"
+  image: "backend" # We will fix this URL later
+  tag: "v1"
   replicas: 1
   servicePort: 5000
 
 frontend:
-  image: "ghcr.io/MartinS984/frontend"
-  tag: "latest"
+  image: "frontend"
+  tag: "v1"
   replicas: 1
   servicePort: 80
 
