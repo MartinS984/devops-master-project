@@ -1,0 +1,21 @@
+# Default values for devops-app.
+
+backend:
+  image: "ghcr.io/MartinS984/backend" # We will fix this URL later
+  tag: "latest"
+  replicas: 1
+  servicePort: 5000
+
+frontend:
+  image: "ghcr.io/MartinS984/frontend"
+  tag: "latest"
+  replicas: 1
+  servicePort: 80
+
+database:
+  image: "postgres"
+  tag: "13"
+  env:
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "password"
+    POSTGRES_DB: "todos"

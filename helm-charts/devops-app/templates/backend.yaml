@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"   # The image we built earlier
+        imagePullPolicy: IfNotPresent  # CRITICAL for Minikube local images!
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: "db"           # Must match the Postgres Service name
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: DB_NAME
+          value: "postgres"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - protocol: TCP
+    port: 80        # The service exposes port 80 internally
+    targetPort: 5000 # It maps to container port 5000
+  type: LoadBalancer   # Internal only (Frontend will talk to this)
