@@ -2,6 +2,8 @@
 
 This repository documents the journey of building, containerizing, automating, and monitoring a 3-tier application. The project mimics a real-world DevOps transformation.
 
+"🚀 New: Check out the GitOps & Helm Lab Guide for details on the ArgoCD implementation."
+
 ## 🏗️ Architecture
 * **Frontend:** React.js
 * **Backend:** Node.js (Express)
